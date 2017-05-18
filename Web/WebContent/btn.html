@@ -1,0 +1,27 @@
+<!DOCTYPE HTML >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Show/Hide</title>
+<script>
+function myfunction(){
+	var t=document.getElementById("txt");
+	if(t.style.display=='none'){
+		t.innerHTML="Harikesh";
+		t.style.display='block';
+		document.getElementById("btn").value="Hide";
+	}
+	else{
+		t.style.display='none';
+		document.getElementById("btn").value="Show";
+		
+	}
+}
+</script>
+</head>
+<body>
+<h1>Show/Hide</h1>
+<input type="button" value="show" id="btn" onclick="myfunction()">
+<p id="txt" style="display:none;"></p>
+</body>
+</html>
