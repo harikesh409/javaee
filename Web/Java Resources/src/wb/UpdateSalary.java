@@ -4,6 +4,9 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,14 +30,22 @@ public class UpdateSalary extends HttpServlet {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			 con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","hr","hr");
-			PreparedStatement ps=con.prepareStatement("update employees set salary=? where employee_id=?");
+			/*PreparedStatement ps=con.prepareStatement("update employees set salary=? where employee_id=?");
 			ps.setInt(1,newsal);
 			ps.setInt(2,eid);
 			int c=ps.executeUpdate();
 			if(c==1)
 				pw.println("Successfully Updated");
 			else
-				pw.println("Id not found");			
+				pw.println("Id not found");*/
+			 Statement st=con.createStatement();
+			 ResultSet rs=st.executeQuery("update employees set salary = "+newsal+"where employee_id="+eid);
+			 boolean validate=rs.next();
+			 if(validate==true)
+				 pw.println("Successfuly updated");
+			 else
+				 pw.println("Id not found");
+			
 		}
 		catch(Exception ex)
 		{
@@ -45,7 +56,8 @@ public class UpdateSalary extends HttpServlet {
 			try {
 			con.close();
 			}
-			catch(Exception ex) {				
+			catch(Exception ex) {
+				
 			}
 		}
 	}
