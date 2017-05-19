@@ -37,7 +37,7 @@ public class Details extends HttpServlet {
 				pw.println("Salary="+rs.getString("salary")+"<br>");
 				pw.println("Job="+rs.getString("job_id")+"<br>");
 				}
-			if(ver==false)
+			if(ver==true)
 				pw.println("Sorry! Employee id Not Found");
 
 		}
