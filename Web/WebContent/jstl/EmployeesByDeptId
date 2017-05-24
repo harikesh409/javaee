@@ -1,0 +1,74 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Employees By Dept</title>
+</head>
+<body>
+	<h2>Employees By Dept</h2>
+	<form action="EmployeesByDept.jsp">
+		<sql:setDataSource var="oracle"
+			driver="oracle.jdbc.driver.OracleDriver"
+			url="jdbc:oracle:thin:@localhost:1521:XE" user="hr" password="hr" />
+		<sql:query var="res" dataSource="${oracle}">select distinct department_id from employees order by department_id</sql:query>
+		<br /> <input name="dep" list="dep">
+		<datalist id="dep">
+			<c:forEach var="row" items="${res.rows}">
+				<option value="${row.department_id}"></option>
+			</c:forEach>
+		</datalist>
+		<input type="submit" value="Employees" />
+	</form>
+	<%
+		String deptid = request.getParameter("dep");
+		if (deptid == null || deptid.equals("")) {
+	%>
+	<script type="text/javascript">
+		function fun() {
+			window.alert("Enter Department ID");
+		}
+	</script>
+	<%
+		return; // terminate JSP
+		}
+	%>
+
+
+
+	<sql:query var="result" dataSource="${oracle}">
+        select * from employees where department_id = ?
+        <sql:param value="${param.dep}"></sql:param>
+	</sql:query>
+
+	<p />
+	<c:set var="c" value="${result.rowCount}" />
+	<c:choose>
+		<c:when test="${c>0}">
+			<table style="width: 100%" border="1">
+				<tr>
+					<th>Name</th>
+					<th>Job</th>
+					<th>Salary</th>
+				</tr>
+
+				<c:forEach var="row" items="${result.rows}">
+					<tr>
+						<td>${row.first_name}</td>
+						<td>${row.job_id}</td>
+						<td>${row.salary}</td>
+				</c:forEach>
+			</table>
+		</c:when>
+		<c:otherwise>
+			<h2>Enter a valid Department ID</h2>
+		</c:otherwise>
+	</c:choose>
+
+
+</body>
+</html>
