@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Detials with JSON and jQuery</title>
+<script type="text/javascript" src="jquery-3.2.1.js"></script>
+<script type="text/javascript">
+	function getEmployeeDetails() {
+		$.getJSON("../AJAX/empdetails_json.jsp", {
+			empid : $("#empid").val()
+		}, displayResult);
+	}
+	function displayResult(data) {
+		if ($("#empid").val() === "")
+			alert("Enter Employee ID");
+		else {
+			if (data.error)//employee not found
+			{
+				//clearing the values
+				$("#empname").val("");
+				$("#empsal").val("");
+				alert("Employee not found");
+			} else //employee found
+			{
+				$("#empname").val(data.name);
+				$("#empsal").val(data.salary);
+			}
+		}
+
+	}
+</script>
+</head>
+<body>
+	<h2>Get Employee Details using jQuery and JSON</h2>
+	<table>
+		<tr>
+			<td>Employee id:</td>
+			<td><input type="text" id="empid" size=10 /> <input
+				type="button" value="Get Details" onclick="getEmployeeDetails()" /></td>
+		</tr>
+		<tr>
+			<td>Employee Name:</td>
+			<td><input type="text" id="empname" readonly="readonly" size=30 /></td>
+		</tr>
+		<tr>
+			<td>Salary:</td>
+			<td><input type="text" id="empsal" readonly="readonly" size=30 /></td>
+		</tr>
+	</table>
+</body>
+</html>

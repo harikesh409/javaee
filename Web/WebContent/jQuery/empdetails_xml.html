@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Details using AJAX and jQuery</title>
+<script src="jquery-3.2.1.js"></script>
+<script type="text/javascript">
+	function getEmployeeDetails() {
+		$.get("../AJAX/empdetails_xml.jsp", {
+			empid : $("#empid").val()
+		}, displayResult);
+	}
+	function displayResult(data) {
+		if ($(data).find("error").text() != "")//error 
+		{
+			//clearing the fields
+			$("#empname").val("");
+			$("#empsal").val("");
+			alert("Error: " + $(data).find("error").text());
+		} else // found emp details 
+		{
+			$("#empname").val($(data).find("name").text());
+			$("#empsal").val($("salary",data).text());
+		}
+	}
+</script>
+</head>
+<body>
+<h2>Employee Details using jQuery</h2>
+<table>
+<tr><td>Employee ID: </td><td>
+<input type="text" id="empid" size=10/>
+<input type="button" value="Get Details" onclick="getEmployeeDetails()"/></td></tr>
+<tr><td>Employee Name: </td>
+<td><input type="text" id="empname" readonly="readonly" size="30"/></td></tr>
+<tr><td>Salary: </td>
+<td><input type="text" id="empsal" readonly="readonly" size="30"/></td></tr>
+</table>
+</body>
+</html>

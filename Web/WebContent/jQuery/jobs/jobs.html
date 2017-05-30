@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Jobs and Employees</title>
+<script type="text/javascript" src="../jquery-3.2.1.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$.getJSON("jobs.jsp", {}, displayJobs);
+	});
+	function displayJobs(data) {
+		$.each(data, function(index, job) {
+			$("#jobs").append(
+					"<option value='"+job.id+"'>" + job.title + "</option>");
+		});
+	}
+	function getEmployees() {
+		$("#employees").contents().remove();//clear options
+		$("#salary").contents().remove();
+		$.getJSON("employees.jsp", {
+			jobid : $("#jobs").val()
+		}, displayEmployees);
+	}
+	function displayEmployees(data) {
+		$.each(data, function(index, name) {
+			$("#employees").append(
+					"<option value='"+name.fullname+"'>" + name.fullname
+							+ "</option>");
+		});
+	}
+	function getSalary() {
+		$("#salary").contents().remove();
+		$.getJSON("salary.jsp", {
+			fullname : $("#employees").val()
+		}, displaySalary);
+	}
+	function displaySalary(data) {
+		$.each(data, function(index, sal) {
+			$("#salary").append("<option>" + sal + "</option>");
+		});
+	}
+</script>
+</head>
+<body>
+	<form id="form1">
+		<h2>Jobs and Employees</h2>
+		<table>
+			<tr>
+				<td valign="top" width=200px><h3>Jobs</h3> <select id="jobs"
+					size=10 onChange="getEmployees()"></select>
+					<p /> <b>Select a Job to get Employees of that Job</b></td>
+				<td valign="top" width="200px"><h3>Employees</h3> <select
+					id="employees" size="10" style="width: 200px"
+					onChange="getSalary()"></select>
+					<p /> <b>Select a employee to get Salary of that employee</b></td>
+				<td valign="top" width="200px"><h3>Salary</h3> <select
+					id="salary" size="10" style="width: 200px"></select></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
