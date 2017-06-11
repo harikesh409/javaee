@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<title>Perfect Number</title>
+</h:head>
+<h:body>
+	<h1>Perfect Number</h1>
+	<h:form id="form1">
+	Enter a number:
+	<h:inputText id="number" value="#{perfectBean.number}" p:required="true"
+			requiredMessage="Please enter a number!"
+			validatorMessage="Number  must be between 1 and 100"
+			p:placeholder="Enter number between 1 to 100"
+			size="50" p:autofocus="true">
+			<f:validateLongRange minimum="1" maximum="100"></f:validateLongRange>
+		</h:inputText>
+		<h:message id="error" for="number" />
+		<p />
+		<h:commandButton value="submit" actionListener="#{perfectBean.check}"
+			type="submit"></h:commandButton>
+		<p />
+		<h3>#{perfectBean.message}</h3>
+	</h:form>
+</h:body>
+</html>
