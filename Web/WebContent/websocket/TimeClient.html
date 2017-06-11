@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<script type="text/javascript">
+var wsocket;
+var optext;
+function connect() {
+	wsocket = new WebSocket("ws://localhost:8888/web/time");
+	wsocket.onmessage=onMessage;
+	optext=document.getElementById("opText");
+}
+function onMessage(evt) {
+	var data = evt.data;
+	optext.innerHTML = data;
+}
+</script>
+</head>
+<body onload="connect()">
+<h2>Time Client</h2>
+<div id="opText"></div>
+</body>
+</html>
