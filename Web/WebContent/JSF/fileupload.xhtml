@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>File Upload</title>
+</h:head>
+<h:body>
+	<h2>Word Count</h2>
+	<h:form enctype="multipart/form-data">
+            Select File : 
+            <h:inputFile id="file" value="e">
+		</h:inputFile>
+		<p />
+		<h:commandButton value="Upload" actionListener="#{fileBean.upload}">
+		</h:commandButton>
+		<p />
+		<c:if test="#{fileBean.count gt  0}">
+                No. of words in the document are : 
+                <h:outputText value="#{fileBean.count}" />
+		</c:if>
+	</h:form>
+</h:body>
+</html>

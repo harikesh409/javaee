@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<style>
+.table {
+	width: 100%;
+	
+}
+
+.headers {
+	font-family: verdana;
+	font-size: 12pt;
+	background-color: maroon;
+	color: white;
+	text-align:center;
+}
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+<title>Employees</title>
+</head>
+<body>
+	<f:view>
+		<f:metadata>
+			<f:viewParam name="jobid" value="#{payrollBean.jobid}"></f:viewParam>
+			<f:viewAction action="#{payrollBean.retrieveEmployees}"></f:viewAction>
+		</f:metadata>
+		<h:dataTable border="1" value="#{payrollBean.employees}" var="emp"
+			styleClass="table table-striped table-bordered table-hover" headerClass="headers">
+			<h:column>
+				<f:facet name="header">Name</f:facet> #{emp.first_name}  </h:column>
+			<h:column>
+				<f:facet name="header">Salary</f:facet> #{emp.salary} </h:column>
+		</h:dataTable>
+	</f:view>
+</body>
+</html>

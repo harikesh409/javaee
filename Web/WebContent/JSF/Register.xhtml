@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+<title>Registration</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	function validate() {
+		var p1 = $("#password").val();
+		var p2 = $("#confirmPassword").val();
+		if (p1 !== p2) {
+			alert("Sorry! Passwords do not match!");
+			return false;
+		}
+		return true;
+	}
+</script>
+</head>
+<body>
+	<h2>Registration</h2>
+	<h:form onsubmit="return validate()" prependId="false">
+    Email Address <br />
+		<h:inputText id="email" value="#{userBean.email}"
+			p:required="required"
+			p:type="email"
+			>
+			<f:validateBean></f:validateBean>
+		</h:inputText>
+		<h:message for="email"></h:message>
+		<p />
+    Password<br />
+		<h:inputSecret id="password" value="#{userBean.password}" p:required="required">
+			<f:validateBean></f:validateBean>
+		</h:inputSecret>
+		<h:message for="password"></h:message>
+		<p />    
+    Confirm Password<br />
+		<h:inputSecret id="confirmPassword"
+			value="#{userBean.confirmPassword}" p:required="required"></h:inputSecret>
+		<p />
+		<h:commandButton value="Register" action="#{userBean.register}" />
+		<p />
+		<h2>
+			<h:outputText value="#{userBean.message}"></h:outputText>
+		</h2>
+	</h:form>
+</body>
+</html>

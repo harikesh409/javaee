@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<style>
+.table {
+	width: 100%;
+	align:center;
+	
+}
+
+.headers {
+	font-family: verdana;
+	font-size: 12pt;
+	background-color: maroon;
+	color: white;
+	text-align: center;
+}
+</style> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+<title>Jobs</title>
+</head>
+<body>
+	<h1>Jobs</h1>
+	<h:dataTable value="#{payrollBean.jobs}" border="1"
+		styleClass="table table-striped table-bordered table-hover table-condensed" headerClass="headers" var="job">
+		<h:column>
+			<f:facet name="header">Title</f:facet>
+	        #{job.job_title}
+	     </h:column>
+		<h:column>
+			<f:facet name="header">Min Salary</f:facet>
+	        #{job.min_salary}
+	     </h:column>
+		<h:column>
+			<f:facet name="header">Max Salary</f:facet>
+	        #{job.max_salary}
+     </h:column>
+		<h:column>
+		<f:facet name="header">Employee List</f:facet>
+			<h:outputLink value="employeesByJob.xhtml" target="employee">
+			    Employees
+				<f:param name="jobid" value="#{job.job_id}" />
+			</h:outputLink>
+		</h:column>
+	</h:dataTable>
+</body>
+</html>
