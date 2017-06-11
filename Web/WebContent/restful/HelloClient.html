@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Hello Client</title>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	function callHello() {
+		$.get("http://localhost:8888/web/rest/hello", null, showResult);
+	}
+	function showResult(result) {
+		$("#result").html(result);
+	}
+	function sendData() {
+		$.post("http://localhost:8888/web/rest/hello",{"title":"Restful Services"},showStatus);
+	}
+	function showStatus(res)
+	{
+		alert("Done");
+	}
+</script>
+</head>
+<body>
+	<button onclick="callHello()">Call hello</button>
+	<button onclick="sendData()">Send Data</button>
+	
+	<h2 id="result"></h2>
+</body>
+</html>
